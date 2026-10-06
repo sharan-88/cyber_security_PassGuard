@@ -4,6 +4,11 @@ Analyzes a password locally and explains how it could be attacked: score (0–10
 verdict, entropy, crack-time estimate, findings and suggestions. Includes a secure
 password generator (Python `secrets`). Nothing is stored, logged or sent anywhere.
 
+![landing page](https://github.com/sharan-88/cyber_security_PassGuard/blob/main/Screenshot%202026-10-06%20214045.png)
+
+![example](https://github.com/sharan-88/cyber_security_PassGuard/blob/main/Screenshot%202026-10-06%20214110.png)
+
+
 ## Run
 ```bash
 pip install -r requirements.txt
