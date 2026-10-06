@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PassGuard – Password Strength &amp; Security Analyzer</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header class="top">
+    <div>
+      <h1>PassGuard</h1>
+      <p class="tag">See how an attacker would see your password.</p>
+    </div>
+    <p class="badge" title="The password never leaves this device or the local server">
+      <span class="dot"></span>Offline, nothing stored
+    </p>
+  </header>
+
+  <main class="grid">
+    <!-- ANALYZER -->
+    <section class="panel" aria-labelledby="h-analyze">
+      <h2 id="h-analyze">Check a password</h2>
+
+      <label class="field" for="pw">Password</label>
+      <div class="input-row">
+        <input id="pw" type="password" autocomplete="off" autocapitalize="off"
+               spellcheck="false" maxlength="128" placeholder="Type or paste a password">
+        <button id="toggle" class="ghost" type="button" aria-pressed="false">Show</button>
+      </div>
+
+      <div class="demos">
+        <span>Try an example:</span>
+        <button class="chip" data-demo="password123">password123</button>
+        <button class="chip" data-demo="Welcome@2024">Welcome@2024</button>
+        <button class="chip" data-demo="Tr0ub4dor&amp;3">Tr0ub4dor&amp;3</button>
+        <button class="chip" data-demo="Xk9#mP2$vL7qRz!w">Xk9#mP2$vL7qRz!w</button>
+      </div>
+
+      <div id="result" class="result" hidden>
+        <div class="verdict">
+          <div>
+            <p id="level" class="level">Very Weak</p>
+            <div id="gauge" class="gauge" role="img" aria-label="Strength">
+              <i></i><i></i><i></i><i></i><i></i>
+            </div>
+          </div>
+          <p class="score"><b id="score">0</b><span>/100</span></p>
+        </div>
+
+        <dl class="stats">
+          <div class="crack">
+            <dt>Time to crack</dt>
+            <dd id="crack">–</dd>
+            <small>Offline attack, 10 billion guesses per second</small>
+          </div>
+          <div>
+            <dt>Entropy</dt>
+            <dd><span id="entropy">0</span> bits</dd>
+            <small>Randomness after predictable parts are discounted</small>
+          </div>
+        </dl>
+
+        <ul id="checks" class="checks">
+          <li data-check="length">12+ characters</li>
+          <li data-check="lowercase">Lowercase letter</li>
+          <li data-check="uppercase">Uppercase letter</li>
+          <li data-check="digit">Digit</li>
+          <li data-check="symbol">Symbol</li>
+        </ul>
+
+        <div class="cols">
+          <div>
+            <h3>What we found</h3>
+            <ul id="findings" class="notes"></ul>
+          </div>
+          <div>
+            <h3>How to improve it</h3>
+            <ul id="suggestions" class="notes"></ul>
+          </div>
+        </div>
+      </div>
+
+      <p id="error" class="error" role="alert" hidden></p>
+    </section>
+
+    <!-- GENERATOR -->
+    <section class="panel gen" aria-labelledby="h-gen">
+      <h2 id="h-gen">Generate a password</h2>
+      <p class="hint">Created with Python's <code>secrets</code> module, which is built for security.</p>
+
+      <label class="field" for="len">Length: <b id="len-val">16</b></label>
+      <input id="len" type="range" min="8" max="64" value="16">
+
+      <label class="check-inline">
+        <input id="sym" type="checkbox" checked> Include symbols
+      </label>
+
+      <button id="gen" class="primary" type="button">Generate password</button>
+
+      <div id="gen-out" hidden>
+        <output id="gen-pw" class="gen-pw" aria-live="polite"></output>
+        <div class="gen-actions">
+          <button id="copy" class="ghost" type="button">Copy</button>
+          <button id="use" class="ghost" type="button">Analyze it</button>
+        </div>
+        <p class="gen-meta"><b id="gen-level"></b> · score <span id="gen-score"></span>/100 ·
+          <span id="gen-crack"></span> to crack</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    PassGuard is an academic project. Passwords are processed in memory only and are never saved, logged or sent to another service.
+  </footer>
+
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
